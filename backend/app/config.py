@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     environment: Literal["development", "test", "production"] = Field(
         default="development", validation_alias="ENVIRONMENT"
     )
+
+    # Comma-separated list of allowed origins for CORS.
+    # Example: "http://localhost:3000,https://myapp.vercel.app"
+    # You can also set "*" to allow any origin (credentials will be disabled).
+    cors_origins: str | None = Field(default=None, validation_alias="CORS_ORIGINS")
     # NOTE:
     # These are optional so the service can boot (e.g. for /health) even when
     # Railway variables aren't configured yet. Endpoints that require these
@@ -35,6 +40,12 @@ class Settings(BaseSettings):
                 "to enable Gemini-powered endpoints."
             )
         return self.gemini_api_key
+
+    def cors_origins_list(self) -> list[str]:
+        if not self.cors_origins:
+            return ["http://localhost:3000", "http://127.0.0.1:3000"]
+        parts = [p.strip() for p in self.cors_origins.split(",")]
+        return [p for p in parts if p]
 
 
 @lru_cache(maxsize=1)

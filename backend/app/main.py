@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.config import get_settings
 from backend.app.api.routes_ingest import router as ingest_router
 from backend.app.api.routes_report import router as report_router
 from backend.app.api.routes_rag import router as rag_router
@@ -12,10 +13,15 @@ from backend.app.api.routes_evaluation import router as evaluation_router
 def create_app() -> FastAPI:
     app = FastAPI(title="Earnings Call Intelligence Engine", version="0.1.0")
     
+    settings = get_settings()
+    origins = settings.cors_origins_list()
+    allow_any_origin = "*" in origins
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-        allow_credentials=True,
+        allow_origins=["*"] if allow_any_origin else origins,
+        # If allowing any origin, credentials must be disabled per CORS spec.
+        allow_credentials=False if allow_any_origin else True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
