@@ -7,4 +7,5 @@ pydantic-settings==2.7.0
 python-dotenv==1.0.1
 pgvector==0.3.6
 google-genai==0.3.0
+python-multipart==0.0.20
 
