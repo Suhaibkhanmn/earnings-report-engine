@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from typing import Any
 
 from google import genai
@@ -13,8 +14,11 @@ from backend.app.models import Chunk, Document
 from backend.app.rag.retriever import retrieve_top_k
 
 
-_settings = get_settings()
-_client = genai.Client(api_key=_settings.gemini_api_key)
+@lru_cache(maxsize=1)
+def _get_client() -> genai.Client:
+    settings = get_settings()
+    api_key = settings.require_gemini_api_key()
+    return genai.Client(api_key=api_key)
 
 # Use a model that your dashboard shows quota for.
 REPORT_MODEL = "gemini-2.5-flash"
@@ -131,7 +135,8 @@ def generate_quarter_comparison_report(
 
     instruction = BASE_REPORT_INSTRUCTIONS
 
-    response = _client.models.generate_content(
+    client = _get_client()
+    response = client.models.generate_content(
         model=REPORT_MODEL,
         contents=[
             {

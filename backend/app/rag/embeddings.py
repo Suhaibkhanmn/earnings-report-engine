@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from functools import lru_cache
 
 from google import genai
 
 from backend.app.config import get_settings
 
 
-_settings = get_settings()
-_client = genai.Client(api_key=_settings.gemini_api_key)
+@lru_cache(maxsize=1)
+def _get_client() -> genai.Client:
+    settings = get_settings()
+    api_key = settings.require_gemini_api_key()
+    return genai.Client(api_key=api_key)
 
 EMBED_MODEL = "text-embedding-004"
 
@@ -17,7 +21,8 @@ def embed_texts(texts: Sequence[str]) -> list[list[float]]:
     if not texts:
         return []
 
-    response = _client.models.embed_content(
+    client = _get_client()
+    response = client.models.embed_content(
         model=EMBED_MODEL,
         contents=[{"parts": [{"text": t}]} for t in texts],
     )
