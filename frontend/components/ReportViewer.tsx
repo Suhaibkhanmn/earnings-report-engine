@@ -27,12 +27,12 @@ export default function ReportViewer({ report }: ReportViewerProps) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '1rem 0',
+        padding: '0.75rem 0',
         backgroundColor: 'transparent',
         border: 'none',
         borderBottom: '1px solid #e0e0e0',
         cursor: 'pointer',
-        fontSize: '1rem',
+        fontSize: '0.9rem',
         fontWeight: 600,
         letterSpacing: '0.05em',
         textTransform: 'uppercase',
@@ -55,12 +55,12 @@ export default function ReportViewer({ report }: ReportViewerProps) {
         border: 'none',
         overflow: 'hidden'
       }}>
-        <div style={{ padding: '0 0 1.5rem 0', borderBottom: '1px solid #e0e0e0', marginBottom: '2rem' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.25rem', color: '#1a1a1a' }}>
+        <div style={{ padding: '0 0 1rem 0', borderBottom: '1px solid #e0e0e0', marginBottom: '1.5rem' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.25rem', color: '#1a1a1a' }}>
             {report.ticker} — {report.quarter}
           </h2>
           {report.prev_quarter && (
-            <p style={{ fontSize: '0.9375rem', color: '#666', fontWeight: 400 }}>
+            <p style={{ fontSize: '0.85rem', color: '#666', fontWeight: 400 }}>
               Comparison with {report.prev_quarter}
             </p>
           )}

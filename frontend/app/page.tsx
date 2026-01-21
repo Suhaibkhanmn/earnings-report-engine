@@ -49,9 +49,9 @@ export default function Home() {
 
   return (
     <div style={{ minHeight: '100vh', padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '4rem' }}>
+      <header style={{ marginBottom: '2.5rem' }}>
         <h1 style={{ 
-          fontSize: '2.5rem', 
+          fontSize: '1.4rem', 
           fontWeight: 700, 
           fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
           color: '#1a1a1a', 

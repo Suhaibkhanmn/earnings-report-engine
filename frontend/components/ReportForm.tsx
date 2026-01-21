@@ -177,21 +177,23 @@ export default function ReportForm({ onGenerate, loading }: ReportFormProps) {
         type="submit"
         disabled={loading}
         style={{
-          padding: '1.25rem 2rem',
+          padding: '0.5rem 1.1rem',
           backgroundColor: loading ? '#999' : '#000000',
           color: '#ffffff',
           border: 'none',
           borderRadius: 0,
-          fontSize: '1rem',
-          fontWeight: 600,
+          fontSize: '0.8rem',
+          fontWeight: 500,
           letterSpacing: '0.02em',
           textTransform: 'uppercase',
           cursor: loading ? 'not-allowed' : 'pointer',
           transition: 'background-color 0.2s',
-          marginTop: '2rem',
-          width: '100%',
+          marginTop: '1rem',
+          width: 'auto',
           textAlign: 'center',
-          fontFamily: 'Inter, sans-serif'
+          fontFamily: 'Inter, sans-serif',
+          display: 'block',
+          marginInline: 'auto'
         }}
       >
         {loading ? 'Generating...' : 'Generate Report'}
